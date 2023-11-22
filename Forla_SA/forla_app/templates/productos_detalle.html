@@ -1,0 +1,22 @@
+{% extends "inicio.html" %}
+{% load static %}
+
+{% block content %}
+<h1>Producto Detalle</h1>
+
+<p>Nombre del producto: <i>{{ producto.nombre }}</i></p>
+<p>Marca del producto: <i>{{ producto.marca }}</i></p>
+<p>Descripción del producto: <i>{{ producto.descripcion }}</i></p>
+<p>Precio del producto: <i>{{ producto.precio }}</i></p>
+
+{% if producto.imagen %}
+    <p>Imagen del producto:</p>
+    <img src="{{ producto.imagen.url }}" alt="{{ producto.nombre }}">
+{% endif %}
+
+<p>Fecha de publicación del producto: <i>{{ producto.fechaPublicacion }}</i></p>
+
+<p>
+    <a href="{% url 'productos_lista' %}">Regresar</a>
+</p>
+{% endblock %}

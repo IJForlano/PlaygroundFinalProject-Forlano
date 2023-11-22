@@ -1,9 +1,16 @@
 {% extends "inicio.html" %}
+{% load static %}
 
 {% block content %}
     {% if nombre_producto %}
-        <p>El precio de {{ nombre_producto }} es {{ precio_producto }}</p>
+        {% if precio_producto %}
+            <p>El precio de {{ nombre_producto }} es {{ precio_producto }}.</p>
+        {% else %}
+            <p>Producto no encontrado.</p>
+        {% endif %}
     {% endif %}
+
+
 
     <form method="get">
         {% csrf_token %}

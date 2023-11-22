@@ -1,0 +1,18 @@
+{% extends "inicio.html" %}
+{% load static %}
+{% block content %}
+    <h1> Formulario - Editar perfil</h1>
+    <h1> De {{usuario}}</h1>
+
+
+    <form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <table>
+            {{ miFormulario}}
+        </table>
+        <input type="submit" value="Enviar">
+    </form>
+    <button type='button'>
+        <a class="navbar-brand" href="{% url 'cambiar_contrasenia' %}">Cambiar contraseña</a>
+    </button>
+{% endblock %}

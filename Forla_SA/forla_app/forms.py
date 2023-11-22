@@ -1,18 +1,35 @@
 from django import forms
+from django.contrib.auth.forms import UserCreationForm, UserModel, UserChangeForm
+from .models import Producto
 
 
-class ProductosFormulario(forms.Form):
-    nombre = forms.CharField()
-    descripcion = forms.CharField()
-    precio = forms.DecimalField()
+class ProductosFormulario(forms.ModelForm):
+    class Meta:
+        model = Producto
+        fields = ['nombre', 'marca', 'descripcion', 'precio', 'imagen', 'fechaPublicacion']
 
 
-class PedidosFormulario(forms.Form):
-    detalle = forms.CharField()
-    precio = forms.DecimalField()
+class UserCreationFormCustom(UserCreationForm):
+    user = forms.CharField(label="Usuario")
+    email = forms.EmailField
+    password1 = forms.CharField(label="Contraseña", widget=forms.PasswordInput)
+    password2 = forms.CharField(label="Repetir contraseña", widget=forms.PasswordInput)
+    descripcion = forms.CharField(label="Descripcion")
+    mas_info = forms.URLField(label="Link con mas info")
+
+    class Meta:
+        model = UserModel
+        fields = ["username", "email", "password1", "password2"]
+        help_texts = {k: "" for k in fields}
 
 
-class ClientesFormulario(forms.Form):
-    nombre = forms.CharField()
-    email = forms.EmailField()
-    pedidos_pasados = forms.IntegerField()
+class UserEditForm(UserChangeForm):
+    password = None
+    email = forms.EmailField(label="Ingrese su email:")
+    last_name = forms.CharField(label="Apellido")
+    first_name = forms.CharField(label="Nombre")
+    imagen = forms.ImageField(label="Imagen", required=False)
+
+    class Meta:
+        model = UserModel
+        fields = ["email", "last_name", "first_name", "imagen"]

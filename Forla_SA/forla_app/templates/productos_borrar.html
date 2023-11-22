@@ -1,0 +1,14 @@
+{% extends "inicio.html" %}
+{% load static %}
+
+{% block content %}
+<h1>Borrar Producto</h1>
+
+
+
+    <form action="" method="post">
+        {% csrf_token %}
+        Estas seguro que deseas eliminar el producto: {{producto.nombre}} ??
+        <input type="submit" value="Enviar">
+    </form>
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends "inicio.html" %}
+{% load static %}
+
+{% block content %}
+    <h2>Estos son nuestros productos:</h2>
+    <ul>
+        {% for producto in productos %}
+            <li>
+                {{ producto.nombre }}
+                <form method="post" action="{% url 'eliminar_producto' producto.nombre %}">
+                    {% csrf_token %}
+                    <input type="submit" value="Eliminar">
+                </form>
+                <button>
+                    <a href="{% url 'editar_producto' producto.nombre %}"> Editar</a>
+                </button>
+            </li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'productos_formulario' %}">Crear un nuevo producto</a>
+{% endblock %}

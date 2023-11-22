@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Producto, Pedido, Cliente
+from .models import Producto, Avatar
 
 
 @admin.register(Producto)
@@ -9,15 +9,8 @@ class ProductoAdmin(admin.ModelAdmin):
     search_fields = ("nombre", "precio")
 
 
-@admin.register(Pedido)
-class PedidoAdmin(admin.ModelAdmin):
-    list_display = ("detalle", "precio")
-    list_filter = ("detalle", "precio")
-    search_fields = ("detalle", "precio")
-
-
-@admin.register(Cliente)
+@admin.register(Avatar)
 class ClienteAdmin(admin.ModelAdmin):
-    list_display = ("nombre", "email", "pedidos_pasados")
-    list_filter = ("nombre", "email")
-    search_fields = ("nombre", "email")
+    list_display = ("user", "imagen")
+    list_filter = ("user", "imagen")
+    search_fields = ("user", "imagen")

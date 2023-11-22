@@ -1,11 +1,12 @@
 {% extends "inicio.html" %}
+{% load static %}
 
 {% block content %}
     {% if mi_formulario.errors %}
-    <p style="color: red">Están mal los datos, revisar.</p>
+        <p style="color: red">Están mal los datos, revisar.</p>
     {% endif %}
 
-    <form action="/productos_formulario/" method="post">
+    <form action="/productos_formulario/" method="post" enctype="multipart/form-data">
         {% csrf_token %}
         <table>
             {{ mi_formulario.as_table }}
@@ -13,5 +14,3 @@
         <input type="submit" value="Enviar">
     </form>
 {% endblock %}
-
-
