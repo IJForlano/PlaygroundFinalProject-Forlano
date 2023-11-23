@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import user_passes_test
 from django.shortcuts import render, redirect
 from .models import Producto
 from .forms import ProductosFormulario, UserCreationFormCustom, UserEditForm
@@ -7,9 +8,21 @@ from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.views import PasswordChangeView
 from django.contrib.auth.mixins import LoginRequiredMixin  # Nos obliga a tener un login
+from django.contrib import messages
 
 
 # Create your views here.
+
+class AdminRequiredMixin:
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_staff:
+            messages.error(request, 'Acceso denegado. Debes ser administrador para realizar esta acción.')
+            return redirect('inicio')
+        return super().dispatch(request, *args, **kwargs)
+
+
+def is_admin(user):
+    return user.is_staff
 
 
 def inicio(request):
@@ -20,6 +33,7 @@ def nosotros(request):
     return render(request, "nosotros.html")
 
 
+@user_passes_test(is_admin, login_url='/login')
 def productos_formulario(request):
     if request.method == "POST":
         mi_formulario = ProductosFormulario(request.POST, request.FILES)
@@ -66,7 +80,7 @@ class ProductoDetailView(DetailView):
     template_name = "productos_detalle.html"
 
 
-class ProductoCreateView(CreateView):
+class ProductoCreateView(AdminRequiredMixin, CreateView):
     model = Producto
     template_name = "productos_crear.html"
     success_url = reverse_lazy("productos_lista")  # Es un redirect esto. Despues de darle submit y pasar datos, va ahi.
@@ -74,7 +88,7 @@ class ProductoCreateView(CreateView):
               "fechaPublicacion"]  # Le pasamos fields(campos) que queremos que se renderizen en el form del template.
 
 
-class ProductoUpdateView(UpdateView):
+class ProductoUpdateView(AdminRequiredMixin, UpdateView):
     model = Producto
     template_name = "productos_editar.html"
     fields = ["nombre", "marca", "descripcion", "precio", "imagen",
@@ -82,7 +96,7 @@ class ProductoUpdateView(UpdateView):
     success_url = reverse_lazy('productos_lista')
 
 
-class ProductoDeleteView(DeleteView):
+class ProductoDeleteView(AdminRequiredMixin, DeleteView):
     model = Producto
     template_name = "productos_borrar.html"
     success_url = reverse_lazy('productos_lista')
