@@ -13,9 +13,6 @@ urlpatterns = [
     path("productos_formulario/", views.productos_formulario, name="productos_formulario"),
     path('buscador_precio/', views.buscador_precio, name='buscador_precio'),
     path("leer_productos/", views.leer_productos, name="leer_productos"),
-    # path('eliminar_producto/<str:producto_nombre>/', views.eliminar_producto, name='eliminar_producto'),
-    # path('editar_producto/<str:producto_nombre>/', views.editar_producto, name='editar_producto'),
-
     path("producto/lista", views.ProductoListView.as_view(), name="productos_lista"),
     path("producto/nuevo", views.ProductoCreateView.as_view(), name="NuevoProducto"),
     path("producto/<pk>", views.ProductoDetailView.as_view(), name="DetalleProducto"),
