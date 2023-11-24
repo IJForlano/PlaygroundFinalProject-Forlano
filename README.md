@@ -1,4 +1,4 @@
-# PrimeraPagina-Forlano
+PlaygroundFinalProject-Forlano
 Este es un proyecto Django llamado Forla_SA.
 Dentro del proyecto principal agregamos en settings las configuraciones pertinentes sobre apps, templates, staticfiles. En los urls, con la funcion include hicimos que los todas las rutas salvo admin las maneje el urls.py de la app.
 Luego creamos una app llamada forla_app. Aqui creamos:
@@ -15,3 +15,9 @@ La misma informacion se puede acceder con el DB Browser o tambien vamos a poder 
 Para verlo en admin tenemos que crear un superuser y tambien tenemos que registrar nuestros modelos en admin.py.
 Tambien creamos un buscador de precios que con uso del metodo GET, el usuario ingresa el nombre de un producto y se le muestra el precio del mismo.
 
+Cambios adicionales:
+Agregamos la funcionalidad de subir imagenes. 
+Ahora las imagenes de los productos se ven mediante el listado.
+Se piden permisos de administrador agregar, modificar y eliminar productos.
+Se crea log in, register y log out.
+Se crean distintos redirects para que una vez que se realice un proceso se lleve al usuario a una pagina apropiada.
